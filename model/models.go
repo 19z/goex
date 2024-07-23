@@ -24,10 +24,17 @@ func (s OrderStatus) String() string {
 	return "unknown-status"
 }
 
-// OptionParameter 可选参数
+// OptionParameter is api option parameter
 type OptionParameter struct {
 	Key   string
 	Value string
+}
+
+func (OptionParameter) OrderClientID(cid string) OptionParameter {
+	return OptionParameter{
+		Key:   Order_Client_ID__Opt_Key, // 内部根据Order_Client_ID__Opt_Key来做适配
+		Value: cid,
+	}
 }
 
 type CurrencyPair struct {
@@ -150,4 +157,10 @@ type FuturesAccount struct {
 	MgnRatio  float64 `json:"mgn_ratio,omitempty"`
 	Upl       float64 `json:"upl,omitempty"`
 	RiskRate  float64 `json:"risk_rate,omitempty"`
+}
+
+type FundingRate struct {
+	Symbol string  `json:"symbol"`
+	Rate   float64 `json:"rate"`
+	Tm     int64   `json:"tm"` //资金费收取时间
 }

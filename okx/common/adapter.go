@@ -2,6 +2,7 @@ package common
 
 import (
 	"github.com/nntaoli-project/goex/v2/model"
+	"net/url"
 )
 
 func AdaptKlinePeriodToSymbol(period model.KlinePeriod) string {
@@ -111,4 +112,12 @@ func AdaptQtyOrPricePrecision(sz string) int {
 		return 0
 	}
 	return len(sz) - 2
+}
+
+func AdaptOrderClientIDOptionParameter(params *url.Values) {
+	cid := params.Get(model.Order_Client_ID__Opt_Key)
+	if cid != "" {
+		params.Set("clOrdId", cid) //clOrdId
+		params.Del(model.Order_Client_ID__Opt_Key)
+	}
 }
